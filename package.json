@@ -2,7 +2,7 @@
 	"name": "@jee-r/directus-extension-crypto",
 	"description": "",
 	"icon": "extension",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": "Jee R",
 	"repository": {
 		"type": "git",
