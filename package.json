@@ -1,5 +1,5 @@
 {
-	"name": "directus-extension-crypto",
+	"name": "@jee-r/directus-extension-crypto",
 	"description": "",
 	"icon": "extension",
 	"version": "1.0.0",
