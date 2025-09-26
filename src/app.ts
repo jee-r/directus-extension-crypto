@@ -4,14 +4,18 @@ export default defineOperationApp({
 	id: 'hash-cipher',
 	name: 'Hash & Cipher',
 	icon: 'lock',
-	description: 'Hash or encrypt a string using various algorithms',
-	overview: ({ input, hash, cipher, cipher_key }) => [
-		{
-			label: 'Input',
-			text: input || '--',
-		},
+	description: 'Hash or encrypt a string or file using various algorithms',
+	overview: ({ mode, input, file_key, base_url, hash, cipher, cipher_key }) => [
 		{
 			label: 'Mode',
+			text: mode === 'file' ? 'File' : 'String',
+		},
+		{
+			label: 'Input',
+			text: mode === 'file' ? (file_key ? `${base_url}/${file_key}` : '--') : (input || '--'),
+		},
+		{
+			label: 'Algorithm',
 			text: cipher ? `Cipher: ${cipher}` : `Hash: ${hash || 'sha1'}`,
 		},
 		...(cipher_key ? [{
@@ -21,13 +25,219 @@ export default defineOperationApp({
 	],
 	options: [
 		{
+			field: 'mode',
+			name: 'Mode',
+			type: 'string',
+			meta: {
+				width: 'full',
+				interface: 'select-dropdown',
+				required: true,
+				options: {
+					choices: [
+						{ text: 'String', value: 'string' },
+						{ text: 'File', value: 'file' },
+					],
+				},
+			},
+			schema: {
+				default_value: 'string',
+			},
+		},
+		{
 			field: 'input',
 			name: 'Input String',
 			type: 'string',
 			meta: {
 				width: 'full',
 				interface: 'input',
-				required: true,
+				conditions: [
+					{
+						rule: {
+							mode: {
+								_eq: 'string',
+							},
+						},
+						hidden: false,
+						required: true,
+					},
+					{
+						rule: {
+							mode: {
+								_neq: 'string',
+							},
+						},
+						hidden: true,
+						required: false,
+					},
+				],
+			},
+		},
+		{
+			field: 'file_key',
+			name: 'File Key',
+			type: 'string',
+			meta: {
+				width: 'full',
+				interface: 'input',
+				options: {
+					placeholder: 'The file key from Directus assets',
+				},
+				conditions: [
+					{
+						rule: {
+							mode: {
+								_eq: 'file',
+							},
+						},
+						hidden: false,
+						required: true,
+					},
+					{
+						rule: {
+							mode: {
+								_neq: 'file',
+							},
+						},
+						hidden: true,
+						required: false,
+					},
+				],
+			},
+			schema: {
+				default_value: '{{ $trigger.key }}',
+			},
+		},
+		{
+			field: 'base_url',
+			name: 'Base URL',
+			type: 'string',
+			meta: {
+				width: 'full',
+				interface: 'input',
+				options: {
+					placeholder: 'https://my-directus.com:<PORT>/assets',
+				},
+				conditions: [
+					{
+						rule: {
+							mode: {
+								_eq: 'file',
+							},
+						},
+						hidden: false,
+						required: true,
+					},
+					{
+						rule: {
+							mode: {
+								_neq: 'file',
+							},
+						},
+						hidden: true,
+						required: false,
+					},
+				],
+			},
+		},
+		{
+			field: 'access_token',
+			name: 'Access Token',
+			type: 'string',
+			meta: {
+				width: 'full',
+				interface: 'input',
+				conditions: [
+					{
+						rule: {
+							mode: {
+								_eq: 'file',
+							},
+						},
+						hidden: false,
+						required: false,
+					},
+					{
+						rule: {
+							mode: {
+								_neq: 'file',
+							},
+						},
+						hidden: true,
+						required: false,
+					},
+				],
+			},
+		},
+		{
+			field: 'max_bytes',
+			name: 'Header Size (bytes)',
+			type: 'integer',
+			meta: {
+				width: 'half',
+				interface: 'input',
+				options: {
+					placeholder: 'Maximum bytes to download for header',
+				},
+				note: 'Only used when "Download Full File" is disabled',
+				conditions: [
+					{
+						rule: {
+							mode: {
+								_eq: 'file',
+							},
+						},
+						hidden: false,
+						required: true,
+					},
+					{
+						rule: {
+							mode: {
+								_neq: 'file',
+							},
+						},
+						hidden: true,
+						required: false,
+					},
+				],
+			},
+			schema: {
+				default_value: 262144, // 256KB
+			},
+		},
+		{
+			field: 'download_full_file',
+			name: 'Download Full File',
+			type: 'boolean',
+			meta: {
+				width: 'half',
+				interface: 'boolean',
+				options: {
+					label: 'Download Full File for Complete Hash',
+				},
+				note: 'Enable this for complete file hash. Warning: This will download the entire file and may be slower.',
+				conditions: [
+					{
+						rule: {
+							mode: {
+								_eq: 'file',
+							},
+						},
+						hidden: false,
+						required: true,
+					},
+					{
+						rule: {
+							mode: {
+								_neq: 'file',
+							},
+						},
+						hidden: true,
+						required: false,
+					},
+				],
+			},
+			schema: {
+				default_value: true,
 			},
 		},
 		{
