@@ -1,6 +1,6 @@
 name: release
 
-on: 
+on:
   workflow_dispatch:
   push:
     tags:
@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '22.x'
       - name: Install dependencies
@@ -25,7 +25,7 @@ jobs:
         with:
           name: package
           path: |
-            package.json 
+            package.json
             ./dist
   publish_on_gh:
     name: "publish on github package registry"
@@ -36,7 +36,7 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: '22.x'
           registry-url: 'https://npm.pkg.github.com'
@@ -46,22 +46,20 @@ jobs:
       - run: npm run build
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   publish_on_npm:
     name: "publish on npmjs registry"
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
-      packages: write
     steps:
-      - uses: actions/checkout@v4  
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: '22.x'
           registry-url: 'https://registry.npmjs.org'
+      - run: npm install -g npm@latest
       - run: npm ci
       - run: npm run build
       - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
