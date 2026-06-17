@@ -1,3 +1,8 @@
+## [1.1.1](https://github.com/jee-r/directus-extension-crypto/compare/v1.1.0...v1.1.1) (2026-06-17)
+
+### Chores
+
+* **deps:** update extensions-sdk to v18 for Directus v12 compat ([32c1c9e](https://github.com/jee-r/directus-extension-crypto/commit/32c1c9e76144793caceb3f0f8c9c7f77c44bd242))
 ## [1.1.0](https://github.com/jee-r/directus-extension-crypto/compare/v1.0.1...v1.1.0) (2025-09-26)
 
 ### Features
