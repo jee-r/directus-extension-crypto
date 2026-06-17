@@ -1,3 +1,8 @@
+## [1.2.1](https://github.com/jee-r/directus-extension-crypto/compare/v1.2.0...v1.2.1) (2026-06-17)
+
+### Chores
+
+* **manifest:** align host compat range with audio-metadata extension [skip ci] ([2de29c9](https://github.com/jee-r/directus-extension-crypto/commit/2de29c9a7212e00b1d8ea4b6a1d2c7c1c9280909))
 ## [1.2.0](https://github.com/jee-r/directus-extension-crypto/compare/v1.1.0...v1.2.0) (2026-06-17)
 
 ### Chores
