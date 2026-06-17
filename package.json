@@ -32,7 +32,7 @@
 			"app": "src/app.ts",
 			"api": "src/api.ts"
 		},
-		"host": "^10.10.0"
+		"host": ">=10.10.0"
 	},
 	"scripts": {
 		"build": "directus-extension build",
@@ -43,10 +43,10 @@
 		"version": "conventional-changelog --config ./changelog-config.mjs -i CHANGELOG.md -s && git add CHANGELOG.md"
 	},
 	"devDependencies": {
-		"@directus/extensions-sdk": "^16.0.2",
+		"@directus/extensions-sdk": "^18.0.0",
 		"@types/node": "^24.0.3",
 		"conventional-changelog-cli": "^5.0.0",
-		"conventional-changelog-conventionalcommits": "^9.1.0",
+		"conventional-changelog-conventionalcommits": "^9.3.0",
 		"typescript": "^5.8.3",
 		"vue": "^3.5.17"
 	}
