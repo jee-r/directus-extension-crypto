@@ -110,7 +110,7 @@ export default defineOperationApi<Options>({
 	},
 });
 
-function performHash(input: string | Buffer, algorithm: string): Buffer {
+export function performHash(input: string | Buffer, algorithm: string): Buffer {
 	const hash = crypto.createHash(algorithm);
 	if (typeof input === 'string') {
 		hash.update(input, 'utf8');
@@ -120,7 +120,7 @@ function performHash(input: string | Buffer, algorithm: string): Buffer {
 	return hash.digest();
 }
 
-function performCipher(input: string | Buffer, algorithm: string, key: string): Buffer {
+export function performCipher(input: string | Buffer, algorithm: string, key: string): Buffer {
     const derivedKey = crypto.createHash('sha256').update(key).digest();
     const iv = crypto.randomBytes(16);
 
@@ -152,7 +152,7 @@ function performCipher(input: string | Buffer, algorithm: string, key: string): 
     }
 }
 
-function formatOutput(result: Buffer, format: string): string {
+export function formatOutput(result: Buffer, format: string): string {
 	switch (format) {
 		case 'HEX':
 			return result.toString('hex').toUpperCase();
