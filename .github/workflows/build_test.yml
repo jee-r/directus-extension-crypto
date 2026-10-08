@@ -15,27 +15,29 @@ on:
   push:
     branches:
       - '*'
-      - '!main'
-      - '!dev'
     paths-ignore:
       - '**.md'
 
 jobs:
   build:
-    name: Build 
+    name: Build
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
     steps:
       - uses: actions/checkout@v4
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.x'
       - name: Install dependencies
-        run: npm install 
+        run: pnpm install --frozen-lockfile
       - name: Build
-        run: npm run build
+        run: pnpm run build
+      - name: Test
+        run: pnpm run test
       - name: Validate
-        run: npm run validate
+        run: pnpm run validate
