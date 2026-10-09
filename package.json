@@ -1,6 +1,6 @@
 {
 	"name": "@jee-r/directus-extension-crypto",
-	"description": "",
+	"description": "A Directus extension that provides cryptographic operations for hashing and encrypting strings within your flows.",
 	"icon": "extension",
 	"version": "1.2.2",
 	"author": "Jee R",
