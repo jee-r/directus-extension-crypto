@@ -1,3 +1,9 @@
+## [1.2.3](https://github.com/jee-r/directus-extension-crypto/compare/v1.2.2...v1.2.3) (2026-10-09)
+
+### Bug Fixes
+
+* **package:** add missing description for marketplace indexing ([de19fa4](https://github.com/jee-r/directus-extension-crypto/commit/de19fa448bcbf77c92f7572b39c0f89912a9c8fe))
+
 ## [1.2.2](https://github.com/jee-r/directus-extension-crypto/compare/v1.2.1...v1.2.2) (2026-10-09)
 
 ### Bug Fixes
